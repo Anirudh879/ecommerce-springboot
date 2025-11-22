@@ -16,10 +16,8 @@ import com.codeWithProject.ecom.mapper.ProductMapper;
 import com.codeWithProject.ecom.repository.CategoryRepository;
 import com.codeWithProject.ecom.repository.ProductRepository;
 import com.codeWithProject.ecom.service.ProductService;
-import java.io.File;
 import java.nio.file.*;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
@@ -33,6 +31,8 @@ public class ProductServiceImpl implements ProductService{
 	private final ProductRepository productRepository;
 	
 	private final CategoryRepository categoryRepository;
+	
+	private final ProductMapper productMapper;
 	
 	
 	public ProductDto addProduct(ProductDto productDto,MultipartFile img) {
@@ -108,14 +108,14 @@ public class ProductServiceImpl implements ProductService{
 		@Override
 		public List<ProductDto> getAllProduct() {
 			List<Product> product = productRepository.findAll();
-			return product.stream().map(ProductMapper::toDto).collect(Collectors.toList());
+			return product.stream().map(productMapper::toDto).collect(Collectors.toList());
 		}
 
 
 		@Override
 		public List<ProductDto> getAllProductByName(String name) {
 			List<Product> product = productRepository.findAllByName(name);
-			return product.stream().map(ProductMapper::toDto).collect(Collectors.toList());
+			return product.stream().map(productMapper::toDto).collect(Collectors.toList());
 		}
 
 
@@ -150,7 +150,7 @@ public class ProductServiceImpl implements ProductService{
 			
 			productRepository.save(product);
 			
-			return ProductMapper.toDto(product);
+			return productMapper.toDto(product);
 		}
 		
 		

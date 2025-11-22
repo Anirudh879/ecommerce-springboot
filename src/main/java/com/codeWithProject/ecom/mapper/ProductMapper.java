@@ -1,11 +1,14 @@
 package com.codeWithProject.ecom.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.codeWithProject.ecom.dto.ProductDto;
 import com.codeWithProject.ecom.entity.Product;
 
+@Component
 public class ProductMapper {
 
-	public static ProductDto  toDto(Product product) {
+	public ProductDto  toDto(Product product) {
 			ProductDto dto = new ProductDto();
 			dto.setId(product.getId());
 			dto.setName(product.getName());
@@ -16,13 +19,13 @@ public class ProductMapper {
 	}
 	
 	
-	public static Product toEntity(ProductDto dto) {
+	public Product toEntity(ProductDto dto) {
 		Product product = new Product();
 		product.setId(dto.getId());
 		product.setName(dto.getName());
 		product.setPrice(dto.getPrice());
 		product.setImageUrl(dto.getImageUrl());
-		product.setDescription(product.getDescription());
+		product.setDescription(dto.getDescription());
 		return product;
 	}
 	

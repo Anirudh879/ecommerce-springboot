@@ -35,7 +35,7 @@ public class AuthServiceImpl implements AuthService{
 			user.setEmail(signUpRequestDto.getEmail());
 			user.setPassword(new BCryptPasswordEncoder().encode(signUpRequestDto.getPassword()));
 			user.setName(signUpRequestDto.getName());
-			user.setRole(UserRole.CUSTOMER);
+			user.setRole(UserRole.ADMIN);
 			log.debug("User entity before saving to user",user);
 			
 			User createdUser = userRepository.save(user);
