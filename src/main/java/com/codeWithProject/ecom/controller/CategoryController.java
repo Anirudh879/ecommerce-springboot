@@ -31,6 +31,7 @@ public class CategoryController {
 	
 	
 	private final CategoryServiceImpl categoryServiceImpl;
+    private final ResponseHelper responseHelper;  // inject helper
 	
 	//create categories
 	@PostMapping("/categories")
@@ -40,7 +41,7 @@ public class CategoryController {
 		CategoryDto categoryCreated = categoryServiceImpl.createCategory(categoryDto);
 		log.info("Category created successfully with id: {}",categoryCreated.getId());
 		
-		ApiResponse<CategoryDto> response = ResponseHelper.success("Category created successfully", categoryCreated);
+		ApiResponse<CategoryDto> response = responseHelper.success("Category created successfully", categoryCreated);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 		
 	}
@@ -52,7 +53,7 @@ public class CategoryController {
 		
 		List<CategoryDto>  categories = categoryServiceImpl.getAllCategory();
 		
-		ApiResponse<List<CategoryDto>> response = ResponseHelper.success("Category fetched successfully", categories);
+		ApiResponse<List<CategoryDto>> response = responseHelper.success("Category fetched successfully", categories);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 		
 	} 
@@ -63,7 +64,7 @@ public class CategoryController {
 		log.info("fetch category with all products for a user:{}");
 		
 		CategoryWithProductDto dto = categoryServiceImpl.getCategoryWithProducts(id);
-		ApiResponse<CategoryWithProductDto> response = ResponseHelper.success("Category with product fetch successfully", dto);
+		ApiResponse<CategoryWithProductDto> response = responseHelper.success("Category with product fetch successfully", dto);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
@@ -73,7 +74,7 @@ public class CategoryController {
 		log.info("update category with id for user:{}");
 		
 		CategoryDto dto = categoryServiceImpl.updateCategory(id, categoryDto);
-		ApiResponse<CategoryDto> response = ResponseHelper.success("category updated", dto);
+		ApiResponse<CategoryDto> response = responseHelper.success("category updated", dto);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

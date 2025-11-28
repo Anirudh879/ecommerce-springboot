@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+
+        <!-- Application logs -->
+        <File name="AppFile" fileName="logs/app.json" append="true">
+            <JSONLayout eventEol="true" compact="true">
+                <KeyValuePair key="timestamp" value="%d{yyyy-MM-dd'T'HH:mm:ss.SSS}"/>
+                <KeyValuePair key="level" value="%level"/>
+                <KeyValuePair key="logger" value="%logger"/>
+                <KeyValuePair key="thread" value="%thread"/>
+                <KeyValuePair key="message" value="%msg"/>
+                <KeyValuePair key="traceId" value="%X{traceId}"/>
+                <KeyValuePair key="spanId" value="%X{spanId}"/>
+            </JSONLayout>
+        </File>
+
+        <!-- Error logs only -->
+        <File name="ErrorFile" fileName="logs/error.json" append="true">
+            <JSONLayout eventEol="true" compact="true">
+                <KeyValuePair key="timestamp" value="%d{yyyy-MM-dd'T'HH:mm:ss.SSS}"/>
+                <KeyValuePair key="level" value="%level"/>
+                <KeyValuePair key="logger" value="%logger"/>
+                <KeyValuePair key="thread" value="%thread"/>
+                <KeyValuePair key="message" value="%msg"/>
+                <KeyValuePair key="traceId" value="%X{traceId}"/>
+                <KeyValuePair key="spanId" value="%X{spanId}"/>
+            </JSONLayout>
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+        </File>
+
+        <!-- Console output -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+    </Appenders>
+
+    <Loggers>
+        <!-- Filter out noisy DEBUG logs from Spring/Hibernate/Tomcat -->
+        <Logger name="org.springframework" level="WARN" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="org.hibernate" level="WARN" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="org.apache.catalina" level="WARN" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <!-- Your application logs -->
+        <Root level="INFO">
+            <AppenderRef ref="AppFile"/>
+            <AppenderRef ref="ErrorFile"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

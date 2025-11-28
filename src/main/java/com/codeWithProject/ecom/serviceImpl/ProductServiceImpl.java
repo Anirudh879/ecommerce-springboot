@@ -134,19 +134,23 @@ public class ProductServiceImpl implements ProductService{
 			Product product = productRepository.findById(productDto.getId())
 					.orElseThrow(()-> new ResourceNotFoundException("Product is not available"));
 			
-			product.setId(productDto.getId());
+
 			product.setName(productDto.getName());
 			product.setPrice(productDto.getPrice());
 			product.setDescription(productDto.getDescription());
-			
-			if(!img.isEmpty() && img !=null) {
-				if(product.getImageUrl() != null) {
-					deleteFile(product.getImageUrl());
-				}
-				
-				String newImagePath =  saveImage(img);
-				product.setImageUrl(newImagePath);
-			}			
+
+            // ⭐ Correct image update logic
+            if (img != null && !img.isEmpty()) {
+
+                // Delete old image if exists
+                if (product.getImageUrl() != null) {
+                    deleteFile(product.getImageUrl());
+                }
+
+                // Save new image
+                String newImagePath = saveImage(img);
+                product.setImageUrl(newImagePath);
+            }
 			
 			productRepository.save(product);
 			

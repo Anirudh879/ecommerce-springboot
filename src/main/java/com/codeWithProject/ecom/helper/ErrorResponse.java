@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.slf4j.MDC;
 
 @Data
 @AllArgsConstructor
@@ -19,5 +20,8 @@ public class ErrorResponse {
     private String path;           // URL that caused error
     @Builder.Default
     private Instant timestamp = Instant.now();
-    private String traceId;
+    @Builder.Default
+    private String traceId = MDC.get("traceId");
+    @Builder.Default
+    private String spanId = MDC.get("spanId");
 }

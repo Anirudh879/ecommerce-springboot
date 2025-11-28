@@ -1,4 +1,4 @@
-package com.codeWithProjects.ecom.service;
+package com.codeWithProject.ecom.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -111,28 +111,28 @@ public class ProductServiceImplTest {
 		 when(file.getContentType()).thenReturn("images/jpeg");
 		 assertThrows(FileValidationException.class, ()->productService.saveImage(file));
 	 }
-	 
-	 @Test
-	 void saveImage_largeFile_shouldThrow() {
-		 when(file.isEmpty()).thenReturn(false);
-		 when(file.getContentType()).thenReturn("images/png");
-		 when(file.getSize()).thenReturn(6L*1024*1024);
-		 assertThrows(FileValidationException.class, ()->productService.saveImage(file));
-	 }
-	 
-	 @Test
-	 void saveImage_success() throws Exception{
-		 when(file.isEmpty()).thenReturn(false);
-		 when(file.getContentType()).thenReturn("images/png");
-		 when(file.getSize()).thenReturn(1024L);
-		 when(file.getInputStream()).thenReturn(InputStream.nullInputStream());
-		 when(file.getOriginalFilename()).thenReturn("test.png");
-		 
-		 String path = productService.saveImage(file);
-		 
-		 assertTrue(path.contains("uploads/"));
-		 
-	 }
+
+    @Test
+    void saveImage_largeFile_shouldThrow() {
+        when(file.isEmpty()).thenReturn(false);
+        when(file.getContentType()).thenReturn("image/png");
+        when(file.getSize()).thenReturn(6L * 1024 * 1024);
+
+        assertThrows(FileValidationException.class, () -> productService.saveImage(file));
+    }
+
+    @Test
+    void saveImage_success() throws Exception {
+        when(file.isEmpty()).thenReturn(false);
+        when(file.getContentType()).thenReturn("image/png");
+        when(file.getSize()).thenReturn(1024L);
+        when(file.getInputStream()).thenReturn(InputStream.nullInputStream());
+        when(file.getOriginalFilename()).thenReturn("test.png");
+
+        String path = productService.saveImage(file);
+
+        assertTrue(path.contains("uploads/"));
+    }
 	 
 	 @Test
 	 void getAllProducts_success() {

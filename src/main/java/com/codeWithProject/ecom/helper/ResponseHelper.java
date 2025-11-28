@@ -1,20 +1,20 @@
 package com.codeWithProject.ecom.helper;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class ResponseHelper {
-	
-	
-	public static <T> ApiResponse<T>  success(String message,T data) {
-		return new ApiResponse<T>(true, message, data);
-	}
-	
-	
-	public static <T> ApiResponse<T> failure(String message,T data){
-		return new ApiResponse<T>(false, message, data);
-	}
-	
-	public static <T> ApiResponse<T> FailureAnalysis(String message,T data){
-		return new ApiResponse<T>(false, message,null);
-	}
-	
+
+
+    public <T> ApiResponse<T> success(String message, T data) {
+        return new ApiResponse<>(true, message, data);
+    }
+
+    public <T> ApiResponse<T> failure(String message, T data) {
+        return new ApiResponse<>(false, message, data);
+    }
+
+    public <T> ApiResponse<T> failureAnalysis(String message) {
+        return new ApiResponse<>(false, message, null);
+    }
 }

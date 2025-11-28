@@ -1,4 +1,4 @@
-package ecom.codeWithProjects.ecom.respository;
+package com.codeWithProject.ecom.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,8 +13,9 @@ import com.codeWithProject.ecom.entity.Category;
 import com.codeWithProject.ecom.entity.Product;
 import com.codeWithProject.ecom.repository.CategoryRepository;
 import com.codeWithProject.ecom.repository.ProductRepository;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-@DataLdapTest
+@DataJpaTest
 public class ProductRepositoryTest {
 	
 	@Autowired

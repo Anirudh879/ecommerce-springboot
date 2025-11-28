@@ -32,26 +32,27 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductController {
 	
 	private final ProductServiceImpl productServiceImpl;
-	
+    private final ResponseHelper responseHelper;  // inject helper
+
 	@PostMapping(value="/products",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<ApiResponse<ProductDto>> addProduct( 
-			@RequestPart("product") @Valid ProductDto productDto, 
+	public ResponseEntity<ApiResponse<ProductDto>> addProduct(
+			@RequestPart("product") @Valid ProductDto productDto,
 			@RequestPart(value = "image", required = false) MultipartFile image ){
 			log.info("add product for category id:{}",productDto.getCategoryId());
-			
+
 			ProductDto productAdded = productServiceImpl.addProduct(productDto, image);
 			log.info("Product added successfully with id: {}",productAdded.getId());
-			
-			ApiResponse<ProductDto> response = ResponseHelper.success("Product added Successfully", productAdded);
-			
-			return ResponseEntity.status(HttpStatus.CREATED).body(response);	
+
+			ApiResponse<ProductDto> response = responseHelper.success("Product added Successfully", productAdded);
+
+			return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@GetMapping("/getProducts")
 	public ResponseEntity<ApiResponse<List<ProductDto>>> getAllProducts(){
 		log.info("fetch all products");
 		List<ProductDto> products = productServiceImpl.getAllProduct();
-		ApiResponse<List<ProductDto>> response = ResponseHelper.success("all products fetched", products);
+		ApiResponse<List<ProductDto>> response = responseHelper.success("all products fetched", products);
 		return ResponseEntity.status(HttpStatus.OK).body(response);	
 	}
 	
@@ -59,7 +60,7 @@ public class ProductController {
 	public ResponseEntity<ApiResponse<List<ProductDto>>> getAllProductsByName(@PathVariable String name){
 		log.info("fetch all products");
 		List<ProductDto> products = productServiceImpl.getAllProductByName(name);
-		ApiResponse<List<ProductDto>> response = ResponseHelper.success("all products fetched", products);
+		ApiResponse<List<ProductDto>> response = responseHelper.success("all products fetched", products);
 		return ResponseEntity.status(HttpStatus.OK).body(response);	
 	}
 	
@@ -67,7 +68,7 @@ public class ProductController {
 	public ResponseEntity<ApiResponse<Void>> deleteProduct(@PathVariable Long id){
 		log.info("delete product with id : {}"+id);
 		productServiceImpl.deleteProduct(id);
-		ApiResponse<Void> response = ResponseHelper.success("Product deleted", null);
+		ApiResponse<Void> response = responseHelper.success("Product deleted", null);
 		return ResponseEntity.status(HttpStatus.OK).body(response);	
 	}
 	
@@ -77,7 +78,7 @@ public class ProductController {
 			@RequestPart(value = "image", required = false) MultipartFile image){
 			log.info("update product");
 			ProductDto product = productServiceImpl.updateProduct(productDto, image);
-			ApiResponse<ProductDto> response = ResponseHelper.success("product updated", product);
+			ApiResponse<ProductDto> response = responseHelper.success("product updated", product);
 			return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	

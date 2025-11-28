@@ -1,33 +1,46 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+##############################
+# Java + Spring Boot
+##############################
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Build artifacts
+/target/
+/out/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# Logs
+*.log
+logs/
+log/
+*/logs/
+
+# Temporary files
+*.tmp
+*.bak
+
+# Upload folder
+uploads/
+
+# System files
+.DS_Store
+Thumbs.db
+
+##############################
+# IntelliJ IDEA
+##############################
+.idea/
 *.iml
 *.ipr
+*.iws
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+##############################
+# Maven
+##############################
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
+dependency-reduced-pom.xml
 
-### VS Code ###
-.vscode/
+##############################
+# OS generated files
+##############################
+ehthumbs.db
+Icon?
+desktop.ini

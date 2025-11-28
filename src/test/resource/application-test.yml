@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:ecom_test;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  security:
+    enabled: false   # Disable security during tests
+
+# Disable autoconfig if using Spring Security 6
+# spring:
+#   autoconfigure:
+#     exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
+jwt:
+  secret: testsecretkey
+  expiration: 3600000
+
+file:
+  upload:
+    path: uploads/test
+
+logging:
+  level:
+    root: ERROR

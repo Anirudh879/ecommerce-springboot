@@ -34,7 +34,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
     									.message("Resource not found")
     									.details(ex.getMessage())
     									.path(request.getRequestURI())
-    									.traceId(UUID.randomUUID().toString())
     									.build();	
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
@@ -54,7 +53,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
     										.message("Method argument validation error")
     										.details(errors.toString())
     										.path(request.getDescription(false).replace("uri=", ""))
-    										.traceId(UUID.randomUUID().toString())
     										.build();
     	
     	
@@ -68,7 +66,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
                 .message("Something went wrong")
                 .details(ex.getMessage())
                 .path(request.getRequestURI())
-                .traceId(UUID.randomUUID().toString())
                 .build();
     	return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
     } 
@@ -81,7 +78,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
                 .message("Resource already exists")
                 .details(ex.getMessage())
                 .path(request.getRequestURI())
-                .traceId(UUID.randomUUID().toString())
                 .build();
 
     	return new ResponseEntity<>(response,HttpStatus.CONFLICT);
@@ -95,7 +91,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
     							.message("File validation error")
     							.details(ex.getMessage())
     							.path(request.getRequestURI())
-    			                .traceId(UUID.randomUUID().toString())
     			                .build();
     	return new ResponseEntity<>(response,HttpStatus.CONFLICT);
     }
